@@ -37,10 +37,12 @@ class LAZYac {
     }
 
     buildSuffix() {
-        let dict = this.dict;
-        let output = this.output;
-        let suffix = new Map(Object.values(dict[0]).map(state => [state, 0]));        // represents the blue suffix link in the visual trie
-        let xsuffix = Array.from(suffix.keys());
+        let {
+            dict,
+            output
+        } = this;
+        let xsuffix = Object.values(dict[0]);
+        let suffix = new Map(xsuffix.map(state => [state, 0]));        // represents the blue suffix link in the visual trie
         while (xsuffix.length) {
             let r = xsuffix.shift();
             // for each symbol a such that g(r, a) = s
@@ -58,8 +60,6 @@ class LAZYac {
                 else suffix.set(s, 0);
             }
         }
-        this.dict = dict;
-        this.output = output;
         this.suffix = suffix;
     }
 
